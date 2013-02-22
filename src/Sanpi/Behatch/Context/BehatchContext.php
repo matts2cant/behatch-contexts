@@ -8,28 +8,31 @@ class BehatchContext extends BehatContext
 {
     private $parameters;
 
-    public function getParameter($extension, $name)
+    public function getParameter($type, $extension, $name)
     {
-        return $this->parameters[$extension][$name];
+        return $this->parameters[$type][$extension][$name];
     }
 
-    public function hasParameter($extension, $name)
+    public function hasParameter($type, $extension, $name)
     {
-        return isset($this->parameters[$extension][$name]);
+        return isset($this->parameters[$type][$extension][$name]);
     }
 
-    public function setParameter($extension, $name, $value)
+    public function setParameter($type, $extension, $name, $value)
     {
-        $this->parameters[$extension][$name] = $value;
+        $this->parameters[$type][$extension][$name] = $value;
     }
 
     public function setParameters($parameters)
     {
-        $this->parameters = $parameters['contexts'];
+        $this->parameters = $parameters;
 
-        foreach ($this->parameters as $name => $values) {
-            $className = __NAMESPACE__ . '\\' . ucfirst($name) . 'Context';
-            $this->useContext($name, new $className());
+        foreach ($this->parameters as $type => $parameters) {
+            foreach ($parameters as $name => $values) {
+                $type = preg_replace('/s$/', '', $type);
+                $className = '\\Sanpi\\Behatch\\' . ucfirst($type) . '\\' . ucfirst($name) . ucfirst($type);
+                $this->useContext($name, new $className($parameters));
+            }
         }
     }
 }

@@ -3,6 +3,7 @@
 namespace Sanpi\Behatch\Context\Initializer;
 
 use Sanpi\Behatch\Context\BehatchContext;
+use Sanpi\Behatch\Notifiers\BehatchNotifier;
 use Behat\Behat\Context\ContextInterface;
 use Behat\Behat\Context\Initializer\InitializerInterface;
 

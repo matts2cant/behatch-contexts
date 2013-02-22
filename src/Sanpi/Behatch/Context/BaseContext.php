@@ -16,7 +16,7 @@ abstract class BaseContext extends RawMinkContext implements TranslatedContextIn
     protected function getParameter($extension, $name)
     {
         return $this->getMainContext()->getSubContext('behatch')
-            ->getParameter($extension, $name);
+            ->getParameter('contexts', $extension, $name);
     }
 
     protected function assertContains($expected, $actual, $message = null)

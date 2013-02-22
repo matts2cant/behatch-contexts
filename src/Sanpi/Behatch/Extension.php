@@ -15,22 +15,28 @@ class Extension implements ExtensionInterface
         $loader = new XmlFileLoader($container, new FileLocator(__DIR__ . '/services'));
         $loader->load('core.xml');
 
-        foreach ($config['contexts'] as $name => $values) {
-            $this->validateContextsConfig($name, $values);
+        foreach ($config as $group => $groupValues) {
+            foreach ($groupValues as $name => $values) {
+                $this->validateContextsConfig($group, $name, $values);
+            }
         }
 
         $container->setParameter('behatch.parameters', $config);
     }
 
-    private function validateContextsConfig($name, $values)
+    private function validateContextsConfig($group, $name, $values)
     {
-        $validate = 'validateContexts' . ucfirst($name) . 'Config';
+        $validate = 'validate' . ucfirst($group) . ucfirst($name) . 'Config';
         if (is_callable(array($this, $validate))) {
             $this->$validate($values);
         }
         else {
-            throw new \RuntimeException("Invalid config section '$name'.");
+            throw new \RuntimeException("Invalid config section '$group.$name'.");
         }
+    }
+
+    private function validateNotifiersCampfireConfig($values)
+    {
     }
 
     private function validateContextsBrowserConfig($values)
@@ -120,6 +126,17 @@ class Extension implements ExtensionInterface
     {
         $builder->
             children()->
+                arrayNode('notifiers')->
+                    children()->
+                        arrayNode('campfire')->
+                            children()->
+                                scalarNode('url')->
+                                    defaultValue('')->
+                                end()->
+                            end()->
+                        end()->
+                    end()->
+                end()->
                 arrayNode('contexts')->
                     children()->
                         arrayNode('browser')->
