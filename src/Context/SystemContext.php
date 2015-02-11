@@ -7,7 +7,7 @@ use Behat\Gherkin\Node\PyStringNode;
 
 class SystemContext extends BaseContext
 {
-    private $createdFiles = array();
+    protected $createdFiles = array();
 
     public function __construct($root = '.')
     {

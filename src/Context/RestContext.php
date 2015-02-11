@@ -15,7 +15,7 @@ class RestContext extends BaseContext
      *
      * @var array
      */
-    private $requestHeaders = array();
+    protected $requestHeaders = array();
 
     /**
      * Sends a HTTP request

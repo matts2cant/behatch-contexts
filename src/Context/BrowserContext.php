@@ -10,8 +10,8 @@ use Behat\Mink\Exception\ElementNotFoundException;
 
 class BrowserContext extends BaseContext
 {
-    private $timeout;
-    private $dateFormat = 'dmYHi';
+    protected $timeout;
+    protected $dateFormat = 'dmYHi';
 
     public function __construct($timeout = 1)
     {

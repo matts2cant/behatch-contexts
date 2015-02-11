@@ -6,7 +6,7 @@ use Behat\Behat\Hook\Scope\AfterStepScope;
 
 class DebugContext extends BaseContext
 {
-    private $screenshotDir;
+    protected $screenshotDir;
 
     public function __construct($screenshotDir = '.')
     {

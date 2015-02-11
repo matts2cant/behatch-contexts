@@ -8,7 +8,7 @@ use Behat\Mink\Exception\ExpectationException;
 
 abstract class BaseContext extends RawMinkContext implements TranslatableContext
 {
-    private $parameters;
+    protected $parameters;
 
     public static function getTranslationResources()
     {
